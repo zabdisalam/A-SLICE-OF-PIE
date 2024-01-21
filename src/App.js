@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       <Reviews /> {/* Goal 1 */}
-      <StoreOrders /> {/* Goal 2 */}
+      <StoreOrders /> {/* Goal 2 & 5 */}
       <MonthlyRevenue /> {/* Goal 3 & 4 */}
     </div>
   );
