@@ -38,7 +38,7 @@ const Reviews = () => {
     series: percentages,
     options: {
       chart: { toolbar: { show: false } },
-      dataLabels: { enabled: false },
+      dataLabels: { enabled: true },
       labels: Object.keys(sentimentCounts),
       colors: ["#020617", "#ff8f00", "#00897b", "#1e88e5"],
       legend: { show: false },

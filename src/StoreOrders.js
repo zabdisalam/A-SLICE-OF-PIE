@@ -13,26 +13,78 @@ const StoreOrders = () => {
   const storeOrderCounts = useMemo(() => {
     return orderData.reduce(
       (acc, order) => {
-        if (acc[order.store] !== undefined) {
-          acc[order.store] += 1;
-        }
+        let orderCount = 0;
+        order.items.forEach((item, index) => {
+          if (item.size === "S") acc[0][order.store] += 1;
+          else if (item.size === "M") acc[1][order.store] += 1;
+          else if (item.size === "L") acc[2][order.store] += 1;
+          if (item.type === "Cheese") acc[3][order.store] += 1;
+          else if (item.type === "Pepperoni") acc[4][order.store] += 1;
+          else if (item.type === "Deluxe") acc[5][order.store] += 1;
+          else if (item.type === "Hawaiian") acc[6][order.store] += 1;
+          else if (item.type === "Meatlovers") acc[7][order.store] += 1;
+        });
+        acc[order.store] += orderCount;
         return acc;
       },
-      { Kanata: 0, Orleans: 0, Downtown: 0, "Sandy Hill": 0, "The Glebe": 0 }
+      // [{"S"},{"M"},{"L"},{"Cheese"},{"Pepperoni"},{"Deluxe"},{"Hawaiian"},{"Meatlovers"}]
+      Array(8)
+        .fill()
+        .flatMap(() =>
+          [
+            {
+              Kanata: 0,
+              Orleans: 0,
+              Downtown: 0,
+              "Sandy Hill": 0,
+              "The Glebe": 0,
+            },
+          ].map((e) => ({ ...e }))
+        )
     );
   }, []);
 
   const chartConfig = {
     type: "bar",
+    stacked: true,
     height: 240,
     series: [
       {
-        name: "Orders",
-        data: Object.values(storeOrderCounts),
+        name: "S",
+        data: Object.values(storeOrderCounts[0]),
+      },
+      {
+        name: "M",
+        data: Object.values(storeOrderCounts[1]),
+      },
+      {
+        name: "L",
+        data: Object.values(storeOrderCounts[2]),
+      },
+      {
+        name: "Cheese",
+        data: Object.values(storeOrderCounts[3]),
+      },
+      {
+        name: "Pepperoni",
+        data: Object.values(storeOrderCounts[4]),
+      },
+      {
+        name: "Deluxe",
+        data: Object.values(storeOrderCounts[5]),
+      },
+      {
+        name: "Hawaiian",
+        data: Object.values(storeOrderCounts[6]),
+      },
+      {
+        name: "Meatlovers",
+        data: Object.values(storeOrderCounts[7]),
       },
     ],
     options: {
       chart: {
+        stacked: true,
         toolbar: {
           show: false,
         },
@@ -43,59 +95,43 @@ const StoreOrders = () => {
       dataLabels: {
         enabled: false,
       },
-      colors: ["#020617"],
+      colors: [
+        "#1f77b4", // Blue
+        "#ff7f0e", // Orange
+        "#2ca02c", // Green
+        "#9467bd", // Purple
+        "#8c564b", // Brown
+        "#7f7f7f", // Gray
+        "#bcbd22", // Olive
+        "#17becf", // Cyan
+      ],
       plotOptions: {
         bar: {
-          columnWidth: "40%",
-          borderRadius: 2,
+          horizontal: true,
         },
+      },
+      stroke: {
+        width: 1,
+        colors: ["#fff"],
       },
       xaxis: {
-        axisTicks: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          style: {
-            colors: "#616161",
-            fontSize: "12px",
-            fontFamily: "inherit",
-            fontWeight: 400,
-          },
-        },
-        categories: Object.keys(storeOrderCounts),
+        categories: Object.keys(storeOrderCounts[0]),
       },
       yaxis: {
-        labels: {
-          style: {
-            colors: "#616161",
-            fontSize: "12px",
-            fontFamily: "inherit",
-            fontWeight: 400,
-          },
+        title: {
+          text: undefined,
         },
-      },
-      grid: {
-        show: true,
-        borderColor: "#dddddd",
-        strokeDashArray: 5,
-        xaxis: {
-          lines: {
-            show: true,
-          },
-        },
-        padding: {
-          top: 5,
-          right: 20,
-        },
-      },
-      fill: {
-        opacity: 0.8,
       },
       tooltip: {
         theme: "dark",
+      },
+      fill: {
+        opacity: 1,
+      },
+      legend: {
+        position: "top",
+        horizontalAlign: "left",
+        offsetX: 40,
       },
     },
   };
