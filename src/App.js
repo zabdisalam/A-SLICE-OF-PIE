@@ -1,11 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+// import { Button } from "@material-tailwind/react";
+import "./App.css";
+import MonthlyRevenue from "./MonthlyRevenue";
+import StoreOrders from "./StoreOrders";
+
+import Reviews from "./Reviews";
 
 function App() {
   return (
-<h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div>
+      <Reviews /> {/* Goal 1 */}
+      <StoreOrders /> {/* Goal 2 */}
+      <MonthlyRevenue /> {/* Goal 3 & 4 */}
+    </div>
   );
 }
 
