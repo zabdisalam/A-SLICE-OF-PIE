@@ -156,8 +156,8 @@ const MonthlyRevenue = () => {
             color="gray"
             className="max-w-sm font-normal"
           >
-            Visualize your data in a simple way using the
-            @material-tailwind/react chart plugin.
+            Discover A Slice of Pi's 2023 revenue overview: a total sales figure
+            and a month-by-month earnings line chart.
           </Typography>
         </div>
       </CardHeader>
